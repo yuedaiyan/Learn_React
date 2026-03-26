@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>1i</title>
+        <!-- <link rel="icon" href="" /> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="my_habit.css" />
+    </head>
+    <body>
+        <div class="js-container"></div>
+
+        <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            // console.log(dayjs().format("MMMM D"));
+            const div = (
+                <div>
+                    <p>Current time: {dayjs().format("HH:mm:ss")}</p>
+                </div>
+            );
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(div);
+        </script>
+    </body>
+</html>
