@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>2f</title>
+        <title>2h</title>
         <!-- <link rel="icon" href="" /> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="stylesheet" href="my_habit.css" />
@@ -12,12 +12,15 @@
         <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
         <script src="https://unpkg.com/supersimpledev/babel.js"></script>
         <script type="text/babel">
-            function Productdetails({ name, price,discount }) {
+            function Productdetails({ name, price, discountPrice }) {
                 return (
                     <>
                         <p>{name}</p>
-                        <p>Price: {price}</p>
-                        {discount && (<p> Discount price: {discount}</p>)}
+
+                        {!discountPrice && <p>Price: {price}</p>}
+                        {discountPrice && <del>Price: {price}</del>}
+
+                        {discountPrice && <p> Discount price: {discountPrice}</p>}
                         <button>Add to Cart</button>
                     </>
                 );
@@ -26,7 +29,7 @@
             function App() {
                 return (
                     <>
-                        <Productdetails name="Cotton socks" price="10.90" discount='5.45' />
+                        <Productdetails name="Cotton socks" price="10.90" discountPrice="5.45" />
                         <Productdetails name="Tennis balls" price="6.00" />
                         <Productdetails name="Plain T-Shirt" price="7.99" />
                     </>
