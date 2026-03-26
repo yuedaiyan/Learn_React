@@ -8,6 +8,9 @@
     </head>
     <body>
         <div class="js-container"></div>
+
+        <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
         <script src="https://unpkg.com/supersimpledev/react.js"></script>
         <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
         <script src="https://unpkg.com/supersimpledev/babel.js"></script>
@@ -15,14 +18,16 @@
             const socks = 10;
             const tshirt = 8;
             const productCost = socks + tshirt * 2;
-            console.log(productCost);
-            const shippingCost=5
+            // console.log(productCost);
+            const shippingCost = 5;
+
+            console.log(dayjs().format("MMMM D"));
 
             const div = (
                 <div>
                     <p>Product cost: ${productCost}</p>
                     <p>Shipping cost: ${shippingCost}</p>
-                    <p>Total cost: ${productCost+shippingCost}</p>
+                    <p>Total cost: ${productCost + shippingCost}</p>
                     <button>Place your order</button>
                 </div>
             );
