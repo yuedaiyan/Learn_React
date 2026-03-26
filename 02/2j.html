@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+    <head>
+        <title>2j</title>
+        <!-- <link rel="icon" href="" /> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="my_habit.css" />
+    </head>
+    <body>
+        <div class="js-container"></div>
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            function Productdetails({ name,imgSrc, price, discountPrice }) {
+                return (
+                    <>
+                        <img width='100' src={imgSrc}/>
+                        <p>{name}</p>
+                        {discountPrice ? <del>Price: {price}</del> : <p>Price: {price}</p>}
+                        {discountPrice && <p> Discount price: {discountPrice}</p>}
+                        <button>Add to Cart</button>
+                    </>
+                );
+            }
+
+            function App() {
+                return (
+                    <>
+                        <Productdetails name="Cotton socks" imgSrc="cotton-socks.png" price="10.90" discountPrice="5.45" />
+                        <Productdetails name="Tennis balls" imgSrc="tennis-balls.png" price="6.00" />
+                        <Productdetails name="Plain T-Shirt" imgSrc="plain-t-shirt.png" price="7.99" />
+                    </>
+                );
+            }
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(<App />);
+        </script>
+    </body>
+</html>
