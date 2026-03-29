@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+    <head>
+        <title>chatbot</title>
+    </head>
+    <body>
+        <div class="js-container"></div>
+        <script src="react-basics.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            // 解构 传入的props
+            // 第一个是 历史的聊天记录
+            // 第二个是 更新聊天记录的方法
+            function ChatInput({ chatMessages, setChatMessages }) {
+                // ChatInput的私有状态 → 初始为空 + 提供更新方法
+                const [inputText, setInputText] = React.useState("");
+
+                function saveInputText(event) {
+                    // 调用 → 将当前输入框内的值,发送给setInputText函数(上面react自动返回的状态更新函数)
+                    // 执行之后 inputText 将会等于本次的输入
+                    setInputText(event.target.value);
+                }
+
+                // 点击 send 按钮 → 执行本函数
+                function sendMessage() {
+                    // 将inputText传给后端 → 通过后端获取机器人的回复(前端模拟回复)
+                    const response = Chatbot.getResponse(inputText);
+
+                    const newChatMessage = [
+                        // 复制所有旧的消息
+                        ...chatMessages,
+                        // 添加新的消息
+                        {
+                            message: inputText,
+                            sender: "user",
+                            id: crypto.randomUUID(),
+                        },
+                        {
+                            message: response,
+                            sender: "robot",
+                            id: crypto.randomUUID(),
+                        },
+                    ];
+
+                    // 调用setChatMessages → 渲染完整的聊天记录
+                    setChatMessages(newChatMessage);
+                    // 将输入框清空
+                    setInputText("");
+                }
+
+                return (
+                    <>
+                        <input
+                            // 输入框组件: 每次变化的时候调用 saveInput 函数 + 通过 inputText 函数修改输入框内显示的东西
+                            placeholder="Send a message to Chatbot"
+                            size="30"
+                            // 每次输入框内容变化的时候,都会调用一次 saveInputText 函数,更新state
+                            onChange={saveInputText}
+                            // state 发生了变化,react 自动渲染 HTML
+                            value={inputText}
+                        />
+
+                        <button
+                            // 一旦发生点击行为 → 执行 sendMeaasge函数
+                            onClick={sendMessage}>
+                            Send
+                        </button>
+                    </>
+                );
+            }
+
+            // 传入一条消息 进行渲染
+            function ChatMessage({ message, sender }) {
+                return (
+                    <div>
+                        <p>
+                            {sender === "robot" && (
+                                <img
+                                    width="50"
+                                    src="robot.png"
+                                />
+                            )}
+                        </p>
+                        {message}
+                        <p>
+                            {sender === "user" && (
+                                <img
+                                    width="50"
+                                    src="user.png"
+                                />
+                            )}
+                        </p>
+                    </div>
+                );
+            }
+
+            // 渲染函数 → 传入的是历史的聊天记录
+            function ChatMessages({ chatMessages }) {
+                return (
+                    <>
+                        {chatMessages.map((chatMessage) => {
+                            // 将历史记录中的消息逐个渲染
+                            return (
+                                <ChatMessage
+                                    message={chatMessage.message}
+                                    sender={chatMessage.sender}
+                                    key={chatMessage.id}
+                                />
+                            );
+                        })}
+                    </>
+                );
+            }
+
+            // 第一层调用的函数:
+            function App() {
+                // 设定预先输出的内容 + 设定更新方法
+                const [chatMessages, setChatMessages] = React.useState([
+                    {
+                        message: "hello chatbot",
+                        sender: "user",
+                        id: "id1",
+                    },
+                    {
+                        message: "Hello! How can I help you?",
+                        sender: "robot",
+                        id: "id2",
+                    },
+                    {
+                        message: "can you get me todays date?",
+                        sender: "user",
+                        id: "id3",
+                    },
+                    {
+                        message: "Today is March 27",
+                        sender: "robot",
+                        id: "id4",
+                    },
+                ]);
+
+                // 函数返回内容:
+                // 执行两个函数: 输入框函数 + 聊天区函数
+                return (
+                    // tips: 每个组件的内容,命名建议一致
+                    <>
+                        {/* 使用ChatInput这个组件(内部恰好返回 输入 + 聊天 两个HTML元素) */}
+                        <ChatInput
+                            // 调用ChatInput函数来执行,传入两个 props
+                            // 第一个是 历史的聊天记录
+                            // 第二个是 更新聊天记录的方法
+                            chatMessages={chatMessages}
+                            setChatMessages={setChatMessages}
+                        />
+                        <ChatMessages
+                            // 调用 ChatMessages 函数来执行,传入一个 props
+                            chatMessages={chatMessages}
+                        />
+                    </>
+                );
+            }
+
+            // 执行 函数App
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(<App />);
+        </script>
+    </body>
+</html>
+
+<!-- // TODO: 给send按钮添加enter快捷键 -->
