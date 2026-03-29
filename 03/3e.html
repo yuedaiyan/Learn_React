@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>3d</title>
+        <title>3e</title>
         <!-- <link rel="icon" href="" /> -->
         <link
             rel="stylesheet"
@@ -17,8 +17,7 @@
         <script src="https://unpkg.com/supersimpledev/babel.js"></script>
         <script type="text/babel">
             // 按钮点击组件
-            function ClickButton() {
-                const [currTimes, setTimes] = React.useState(0);
+            function ClickButton({currTimes,setTimes}) {
 
                 function buttonClick() {
                     setTimes(currTimes + 1);
@@ -33,10 +32,11 @@
             }
 
             function App() {
+                const [currTimes, setTimes] = React.useState(0);
                 return (
                     <>
-                        <ClickButton />
-                        <ClickButton />
+                        <ClickButton currTimes={currTimes} setTimes={setTimes}/>
+                        <ClickButton currTimes={currTimes} setTimes={setTimes} />
                     </>
                 );
             }
