@@ -1,0 +1,3 @@
+[submodule "clone/react-course"]
+	path = react-course-clone
+	url = https://github.com/SuperSimpleDev/react-course.git
