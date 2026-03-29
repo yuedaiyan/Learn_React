@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <title>3g-2</title>
+        <!-- <link rel="icon" href="" /> -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link
+            rel="stylesheet"
+            href="my_habit.css" />
+    </head>
+    <body>
+        <div class="js-container"></div>
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            function InputName({ inputMes, setMes }) {
+                function onChange(event) {
+                    setMes(event.target.value);
+                }
+
+                return (
+                    <input
+                        onChange={onChange}
+                        placeholder="Type a name here"
+                        value={inputMes}
+                    />
+                );
+            }
+
+            function App() {
+                const [inputMes, setMes] = React.useState("");
+                // const [currInput, setInput] = React.useState("");
+                return (
+                    <>
+                        <InputName
+                            inputMes={inputMes}
+                            setMes={setMes}
+                        />
+                        <p> Hello {inputMes}</p>
+                    </>
+                );
+            }
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(<App />);
+        </script>
+    </body>
+</html>
