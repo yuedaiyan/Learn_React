@@ -30,7 +30,6 @@ export function ChatInput({ chatMessages, setChatMessages }) {
                 sender: "user",
                 time: dayjs().valueOf(),
                 id: crypto.randomUUID(),
-                
             },
         ];
         let response = "Loading…";
@@ -76,9 +75,10 @@ export function ChatInput({ chatMessages, setChatMessages }) {
         }
     }
 
-    // function requestTime() {
-    //     dayjs();
-    // }
+    function cleanMessages() {
+        localStorage.setItem("messages", '[]');
+        setChatMessages([]);
+    }
 
     return (
         <div className="chat-input-contaier">
@@ -94,10 +94,10 @@ export function ChatInput({ chatMessages, setChatMessages }) {
             <button
                 className="send-button"
                 // 一旦发生点击行为 → 执行 sendMeaasge函数
-                // onClick={() => { sendMessage(); requestTime(); }}>
                 onClick={sendMessage}>
                 Send
             </button>
+            <button className="clear-button" onClick={cleanMessages}>Clear</button>
         </div>
     );
 }
