@@ -5,7 +5,6 @@
         <style>
             body {
                 font-family: Arial, Helvetica, sans-serif;
-                /* padding: 30px 10px 30px 10px; */
                 margin: 0px 0px 0px 0px;
             }
             .send-button {
@@ -63,6 +62,14 @@
                 overflow: scroll;
                 scrollbar-width: none;
             }
+            .welcome-message {
+                color: gray;
+                text-align: center;
+            }
+            .loading-img {
+                height: 40px;
+                margin: -15px;
+            }
         </style>
     </head>
     <body>
@@ -92,8 +99,7 @@
 
                     // 固定唯一的 robotId
                     const robotId = crypto.randomUUID();
-                    // 先将 Loadding… 显示出来
-                    let response = "Loading…";
+                    // 先 将之前确定的消息进行拼接
                     const newChatMesages = [
                         ...chatMessages,
                         {
@@ -102,11 +108,19 @@
                             id: crypto.randomUUID(),
                         },
                     ];
-                    // 先将 Loadding… 显示出来
+                    let response = "Loading…";
+
+                    // 将 Loading… 显示出来
                     setChatMessages([
                         ...newChatMesages,
                         {
-                            message: response,
+                            // message: response,
+                            message: (
+                                <img
+                                    className="loading-img"
+                                    src="loading-spinner.gif"
+                                />
+                            ),
                             sender: "robot",
                             id: robotId,
                         },
@@ -181,20 +195,16 @@
             // 渲染函数 → 传入的是历史的聊天记录
             function ChatMessages({ chatMessages }) {
                 // 创建一个 ref
-                const chatMessageRef = React.useRef(null);
-
-                React.useEffect(() => {
-                    const containerElem = chatMessageRef.current;
-                    if (containerElem) {
-                        containerElem.scrollTop = containerElem.scrollHeight;
-                    }
-                }, [chatMessages]);
+                // const chatMessageRef = React.useRef(null);
+                const chatMessageRef = useAutoScroll([chatMessages]);
 
                 return (
                     <div
                         className="chat-message-container"
                         // 将 ref 挂载
-                        ref={chatMessageRef}>
+                        // ref={chatMessageRef}
+                        ref={chatMessageRef}
+                        >
                         {chatMessages.map((chatMessage) => {
                             // 将历史记录中的消息逐个渲染
                             return (
@@ -209,29 +219,29 @@
                 );
             }
 
+            function WelcomeMessage({ chatMessages }) {
+                console.log(chatMessages.length);
+                if (chatMessages.length === 0) {
+                    return <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>;
+                }
+            }
+
+            // 自制 hook
+            function useAutoScroll(dependencies) {
+                const chatMessageRef = React.useRef(null);
+
+                React.useEffect(() => {
+                    const containerElem = chatMessageRef.current;
+                    if (containerElem) {
+                        containerElem.scrollTop = containerElem.scrollHeight;
+                    }
+                }, dependencies);
+
+                return chatMessageRef
+            }
+
             function App() {
-                const [chatMessages, setChatMessages] = React.useState([
-                    {
-                        message: "hello chatbot",
-                        sender: "user",
-                        id: "id1",
-                    },
-                    {
-                        message: "Hello! How can I help you?",
-                        sender: "robot",
-                        id: "id2",
-                    },
-                    {
-                        message: "can you get me todays date?",
-                        sender: "user",
-                        id: "id3",
-                    },
-                    {
-                        message: "Today is March 27",
-                        sender: "robot",
-                        id: "id4",
-                    },
-                ]);
+                const [chatMessages, setChatMessages] = React.useState([]);
 
                 return (
                     <div className="app-container">
@@ -239,6 +249,7 @@
                             // className='chat-mesaaaage'
                             chatMessages={chatMessages}
                         />
+                        <WelcomeMessage chatMessages={chatMessages} />
                         <ChatInput
                             chatMessages={chatMessages}
                             setChatMessages={setChatMessages}
