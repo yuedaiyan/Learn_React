@@ -38,7 +38,6 @@ export function ChatInput({ chatMessages, setChatMessages }) {
         setChatMessages([
             ...newChatMesages,
             {
-                // message: response,
                 message: (
                     <img
                         className="chat-input-loadingImg"
