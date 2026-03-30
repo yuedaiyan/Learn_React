@@ -180,20 +180,20 @@
 
             // 渲染函数 → 传入的是历史的聊天记录
             function ChatMessages({ chatMessages }) {
+                // 创建一个 ref
                 const chatMessageRef = React.useRef(null);
 
-                // TODO: 研究 自动滑动页面到最下面
                 React.useEffect(() => {
-                    const containerElem= chatMessageRef.current;
-                    if(containerElem){
-                        containerElem.scrollTop=container.scrollHeight
+                    const containerElem = chatMessageRef.current;
+                    if (containerElem) {
+                        containerElem.scrollTop = containerElem.scrollHeight;
                     }
-                    // console.log(chatMessageRef.current);
                 }, [chatMessages]);
 
                 return (
                     <div
                         className="chat-message-container"
+                        // 将 ref 挂载
                         ref={chatMessageRef}>
                         {chatMessages.map((chatMessage) => {
                             // 将历史记录中的消息逐个渲染
@@ -254,4 +254,3 @@
 </html>
 
 <!-- TODO: 解决输入太长,溢出文本框的问题 -->
-<!-- TODO: 研究React的hook -->
