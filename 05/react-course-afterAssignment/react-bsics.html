@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <title>React Basics</title>
+    </head>
+    <body>
+        <div class="js-container"></div>
+
+        <script src="react-basics.js"></script>
+        <!-- <script src="https://unpkg.com/supersimpledev@3.2.1/external-library.js"></script> -->
+
+        <!-- 两个包 → 用于处理网页 -->
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <!-- jsx 转换为 js -->
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+        <!-- 将其交给 babel.js 转译 -->
+        <script type="text/babel">
+            const button = <button>hello</button>;
+            const paragraph = <p>paragraph of text</p>;
+            const div = (
+                <div>
+                    <button>hello</button>
+                    <p>paragraph of text {2 + 2}</p>
+                </div>
+            );
+
+            // 将所有内容放入 container div 中
+            const container = document.querySelector(".js-container");
+            // ReactDOM.createRoot(container).render("Welcome to SuperSimpleDev React Course");
+            // ReactDOM.createRoot(container).render(button);
+            ReactDOM.createRoot(container).render(div);
+        </script>
+    </body>
+</html>
