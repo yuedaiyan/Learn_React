@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Chatbot } from "supersimpledev";
+import dayjs from "dayjs";
 import LoadingSpinnerImage from "../assets/loading-spinner.gif";
-import './ChatInput.css';
+import "./ChatInput.css";
 
 export function ChatInput({ chatMessages, setChatMessages }) {
     const [inputText, setInputText] = useState("");
@@ -17,9 +18,8 @@ export function ChatInput({ chatMessages, setChatMessages }) {
         }
         setLoading(true);
 
-        // 首先: 情况输入框
+        // 首先: 清空输入框
         setInputText("");
-
         // 固定唯一的 robotId
         const robotId = crypto.randomUUID();
         // 先 将之前确定的消息进行拼接
@@ -28,6 +28,7 @@ export function ChatInput({ chatMessages, setChatMessages }) {
             {
                 message: inputText,
                 sender: "user",
+                time: dayjs().valueOf(),
                 id: crypto.randomUUID(),
             },
         ];
@@ -37,7 +38,6 @@ export function ChatInput({ chatMessages, setChatMessages }) {
         setChatMessages([
             ...newChatMesages,
             {
-                // message: response,
                 message: (
                     <img
                         className="chat-input-loadingImg"
@@ -57,6 +57,7 @@ export function ChatInput({ chatMessages, setChatMessages }) {
             {
                 message: response,
                 sender: "robot",
+                time: dayjs().valueOf(),
                 id: robotId,
             },
         ]);
@@ -71,6 +72,11 @@ export function ChatInput({ chatMessages, setChatMessages }) {
         if (event.key === "Escape") {
             setInputText("");
         }
+    }
+
+    function cleanMessages() {
+        localStorage.setItem("messages", '[]');
+        setChatMessages([]);
     }
 
     return (
@@ -90,6 +96,7 @@ export function ChatInput({ chatMessages, setChatMessages }) {
                 onClick={sendMessage}>
                 Send
             </button>
+            <button className="clear-button" onClick={cleanMessages}>Clear</button>
         </div>
     );
 }

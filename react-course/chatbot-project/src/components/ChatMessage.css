@@ -17,4 +17,12 @@
 }
 .chat-message-profile {
     width: 40px;
+    border-radius: 45px;
+    object-fit: cover;
+}
+
+.chat-message-time {
+    color: gray;
+    padding: 12px 0px 0px 0px;
+    font-size: 15px;
 }
