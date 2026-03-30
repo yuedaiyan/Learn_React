@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+    <head>
+        <title>4e</title>
+        <!-- <link rel="icon" href="" /> -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link
+            rel="stylesheet"
+            href="my_habit.css" />
+        <style>
+            body {
+                padding: 10px 10px 10px 10px;
+            }
+            .pBasic {
+                font-weight: bolder;
+                font-size: 30px;
+                margin: 0px 0px 10px 0px;
+            }
+            .inputBasic {
+                width: 250px;
+                margin: 0px 20px 10px 0px;
+                height: 40px;
+                padding: 5px 5px 5px 10px;
+                border: 1px solid black;
+
+                border-radius: 3px;
+            }
+            .buttonBasic {
+                background-color: rgb(0, 123, 255);
+                color: white;
+                padding: 10px 15px 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin: 5px 10px 5px 0px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="js-container"></div>
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            function LoginForm() {
+                const [showPassword, setPassword] = React.useState(false);
+
+                function switchPassword() {
+                setPassword(!showPassword)
+                }
+
+                return (
+                    <>
+                        <p className="pBasic">Hello, welcome to my website</p>
+                        <div>
+                            <input
+                                className="inputBasic"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                className="inputBasic"
+                                placeholder="Password"
+                                type={showPassword ? "text" : "password"}
+                            />
+
+                            <button
+                                className="buttonBasic"
+                                onClick={switchPassword}>
+                                {showPassword ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        <button className="buttonBasic">Login</button>
+                        <button className="buttonBasic">Sign up</button>
+                    </>
+                );
+            }
+
+            function App() {
+                return <LoginForm />;
+            }
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(<App />);
+        </script>
+    </body>
+</html>
