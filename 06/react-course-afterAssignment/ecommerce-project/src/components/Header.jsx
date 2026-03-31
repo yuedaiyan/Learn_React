@@ -1,11 +1,11 @@
-import {Link} from 'react-router'
+import {NavLink} from 'react-router'
 import "./Header.css";
 
 function Header() {
     return (
         <div className="header">
             <div className="left-section">
-                <Link
+                <NavLink
                     to="/"
                     className="header-link">
                     <img
@@ -16,7 +16,7 @@ function Header() {
                         className="mobile-logo"
                         src="images/mobile-logo-white.png"
                     />
-                </Link>
+                </NavLink>
             </div>
 
             <div className="middle-section">
@@ -35,13 +35,13 @@ function Header() {
             </div>
 
             <div className="right-section">
-                <Link
+                <NavLink
                     className="orders-link header-link"
                     to="/orders">
                     <span className="orders-text">Orders</span>
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                     className="cart-link header-link"
                     to="/checkout">
                     <img
@@ -50,7 +50,7 @@ function Header() {
                     />
                     <div className="cart-quantity">3</div>
                     <div className="cart-text">Cart</div>
-                </Link>
+                </NavLink>
             </div>
         </div>
     );
