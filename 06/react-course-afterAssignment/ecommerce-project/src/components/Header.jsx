@@ -1,5 +1,7 @@
 import {NavLink} from 'react-router'
 import "./Header.css";
+import MobileLogoWhite from "../assets/images/mobile-logo-white.png"
+import LogoWhite from "../assets/images/logo-white.png"
 
 function Header() {
     return (
@@ -10,11 +12,11 @@ function Header() {
                     className="header-link">
                     <img
                         className="logo"
-                        src="images/logo-white.png"
+                        src={LogoWhite}
                     />
                     <img
                         className="mobile-logo"
-                        src="images/mobile-logo-white.png"
+                        src={MobileLogoWhite}
                     />
                 </NavLink>
             </div>

@@ -15,11 +15,11 @@ function TrackingPage() {
 
             <div className="tracking-page">
                 <div className="order-tracking">
-                    <a
+                    <Link
                         className="back-to-orders-link link-primary"
-                        href="/orders">
+                        to="/orders">
                         View all orders
-                    </a>
+                    </Link>
 
                     <div className="delivery-date">Arriving on Monday, June 13</div>
 
