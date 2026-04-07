@@ -12,7 +12,7 @@ function App() {
     // 将 cart 提升到最高处,防止在不同页面重复加载 cart
     const [cart, setCart] = useState([]);
     useEffect(() => {
-        axios.get("/api/cart-items").then((response) => {
+        axios.get("/api/cart-items?expand=product").then((response) => {
             setCart(response.data);
         });
     }, []);
@@ -44,3 +44,5 @@ function App() {
     );
 }
 export default App;
+
+// TODO: 解决参数传递的时候,为什么要使用{}括住解析的问题
