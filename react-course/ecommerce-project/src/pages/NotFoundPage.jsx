@@ -11,7 +11,8 @@ function NotFoundPage() {
                 href="error-favicon.png"
             />
 
-            <Header />
+            {/* 这里传入空数组,模拟空cart,解决Header渲染问题 */}
+            <Header cart={[]} />
 
             <div className="not-found-message">Page not found</div>
         </>

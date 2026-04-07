@@ -3,7 +3,7 @@ import "./Header.css";
 import MobileLogoWhite from "../assets/images/mobile-logo-white.png";
 import LogoWhite from "../assets/images/logo-white.png";
 
-//      从props中获取cart对象,之后会从中求得商品总数
+// 从props中获取cart对象,之后会从中求得商品总数
 function Header({ cart }) {
     let totalQuantity = 0;
 

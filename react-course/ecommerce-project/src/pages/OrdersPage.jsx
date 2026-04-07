@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import "./OrdersPage.css";
 
-function OrdersPage() {
+function OrdersPage({ cart }) {
     return (
         <>
             <title>Orders</title>
@@ -11,7 +11,7 @@ function OrdersPage() {
                 href="orders-favicon.png"
             />
 
-            <Header />
+            <Header cart={cart} />
 
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>
@@ -136,3 +136,4 @@ function OrdersPage() {
 }
 
 export default OrdersPage;
+// TODO: 各个页面共用一个 Header 的情况下,解决购物车状态传入的问题
