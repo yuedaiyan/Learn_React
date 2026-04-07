@@ -6,12 +6,16 @@ import "./HomePage.css";
 function HomePage() {
     // 初始化 商品列表
     const [products, setPorducts] = useState([]);
+    const [cart, setCart] = useState([]);
 
     // 使用 useEffect,仅渲染一次
     useEffect(() => {
         // 通过后端请求 商品列表
         axios.get("http://localhost:3000/api/products").then((response) => {
             setPorducts(response.data);
+        });
+        axios.get("http://localhost:3000/api/cart-items").then((response) => {
+            setCart(response.data)
         });
     }, []);
 
@@ -24,7 +28,7 @@ function HomePage() {
                 href="home-favicon.png"
             />
 
-            <Header />
+            <Header cart={cart} />
 
             <div className="home-page">
                 <div className="products-grid">
