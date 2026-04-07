@@ -6,16 +6,25 @@ import { useState, useEffect } from "react";
 import "./CheckOutPage.css";
 
 function CheckOutPage({ cart }) {
+    // 数据源于后端,用于储存"寄送相关数据"的状态,按照当前的时间,计算出三种快递套餐所带来的三种快递状态
     const [deliveryOptions, setDeliveryOptiions] = useState([]);
+    // 数据源于后端,用于储存下单界面中的 右侧结算 相关信息
+    const [paymentSummary, setPaymentSummary] = useState([]);
 
     useEffect(() => {
+        // 使用axios,获得当前时间下的三种快递状态
         axios.get("/api/delivery-options?expand=estimatedDeliveryTime").then((response) => {
-            console.log("delivery options:\n", response.data);
+            console.log("deliveryOptions:\n", response.data);
             setDeliveryOptiions(response.data);
+        });
+        // 使用axios,获取当前时间下 右侧结算 相关的信息
+        axios.get("/api/payment-summary").then((response) => {
+            setPaymentSummary(response.data);
         });
     }, []);
 
     console.log("cart:\n", cart);
+    console.log("paymentSummary:\n", paymentSummary);
 
     return (
         <>
@@ -37,7 +46,6 @@ function CheckOutPage({ cart }) {
                         {/* TODO: 不应该确定存在吗?不存在的话,应该解决问题啊! */}
                         {deliveryOptions.length > 0 &&
                             cart.map((cartItem) => {
-                                console.log("deliveryOptions:\n", deliveryOptions);
                                 const selectedDeliveryOption = deliveryOptions.find((deliveryOption) => {
                                     return deliveryOption.id === cartItem.deliveryOptionId;
                                 });
@@ -74,9 +82,11 @@ function CheckOutPage({ cart }) {
                                                     }
 
                                                     return (
-                                                        <div className="delivery-option">
+                                                        <div
+                                                        // TODO: 这里是我自己改的,可能不对
+                                                            key={deliveryOption.id}
+                                                            className="delivery-option">
                                                             <input
-                                                                key={deliveryOption.id}
                                                                 type="radio"
                                                                 checked={deliveryOption.id === cartItem.deliveryOptionId}
                                                                 className="delivery-option-input"
@@ -89,28 +99,6 @@ function CheckOutPage({ cart }) {
                                                         </div>
                                                     );
                                                 })}
-                                                {/* <div className="delivery-option">
-                                                <input
-                                                    type="radio"
-                                                    className="delivery-option-input"
-                                                    name="delivery-option-1"
-                                                />
-                                                <div>
-                                                    <div className="delivery-option-date">Wednesday, June 15</div>
-                                                    <div className="delivery-option-price">$4.99 - Shipping</div>
-                                                </div>
-                                            </div>
-                                            <div className="delivery-option">
-                                                <input
-                                                    type="radio"
-                                                    className="delivery-option-input"
-                                                    name="delivery-option-1"
-                                                />
-                                                <div>
-                                                    <div className="delivery-option-date">Monday, June 13</div>
-                                                    <div className="delivery-option-price">$9.99 - Shipping</div>
-                                                </div>
-                                            </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -118,36 +106,41 @@ function CheckOutPage({ cart }) {
                             })}
                     </div>
 
-                    <div className="payment-summary">
-                        <div className="payment-summary-title">Payment Summary</div>
+                    {/* 用于检查payment-summary是不是存在,如果不存在就就不渲染右侧的结算模块 */}
+                    {paymentSummary && (
+                        <>
+                            <div className="payment-summary">
+                                <div className="payment-summary-title">Payment Summary</div>
 
-                        <div className="payment-summary-row">
-                            <div>Items (3):</div>
-                            <div className="payment-summary-money">$42.75</div>
-                        </div>
+                                <div className="payment-summary-row">
+                                    <div>Items ({paymentSummary.totalItems}):</div>
+                                    <div className="payment-summary-money">{formatMoney(paymentSummary.productCostCents)}</div>
+                                </div>
 
-                        <div className="payment-summary-row">
-                            <div>Shipping &amp; handling:</div>
-                            <div className="payment-summary-money">$4.99</div>
-                        </div>
+                                <div className="payment-summary-row">
+                                    <div>Shipping &amp; handling:</div>
+                                    <div className="payment-summary-money">{formatMoney(paymentSummary.shippingCostCents)}</div>
+                                </div>
 
-                        <div className="payment-summary-row subtotal-row">
-                            <div>Total before tax:</div>
-                            <div className="payment-summary-money">$47.74</div>
-                        </div>
+                                <div className="payment-summary-row subtotal-row">
+                                    <div>Total before tax:</div>
+                                    <div className="payment-summary-money">{formatMoney(paymentSummary.totalCostBeforeTaxCents)}</div>
+                                </div>
 
-                        <div className="payment-summary-row">
-                            <div>Estimated tax (10%):</div>
-                            <div className="payment-summary-money">$4.77</div>
-                        </div>
+                                <div className="payment-summary-row">
+                                    <div>Estimated tax (10%):</div>
+                                    <div className="payment-summary-money">{formatMoney(paymentSummary.taxCents)}</div>
+                                </div>
 
-                        <div className="payment-summary-row total-row">
-                            <div>Order total:</div>
-                            <div className="payment-summary-money">$52.51</div>
-                        </div>
+                                <div className="payment-summary-row total-row">
+                                    <div>Order total:</div>
+                                    <div className="payment-summary-money">{formatMoney(paymentSummary.totalCostCents)}</div>
+                                </div>
 
-                        <button className="place-order-button button-primary">Place your order</button>
-                    </div>
+                                <button className="place-order-button button-primary">Place your order</button>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </>
