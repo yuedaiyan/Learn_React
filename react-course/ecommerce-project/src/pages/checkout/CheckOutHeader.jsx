@@ -3,7 +3,6 @@ import './CheckOutHeader.css'
 import MobileLogo from "../../assets/images/mobile-logo.png"
 import Logo from "../../assets/images/logo.png"
 
-
 function CheckOutHeader() {
     return (
         <div className="checkout-header">
@@ -38,5 +37,4 @@ function CheckOutHeader() {
         </div>
     );
 }
-
 export default CheckOutHeader;

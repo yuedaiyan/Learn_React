@@ -39,5 +39,4 @@ function PaymentSummary({ paymentSummary }) {
         </div>
     );
 }
-
 export default PaymentSummary;

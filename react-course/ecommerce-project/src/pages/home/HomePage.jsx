@@ -5,10 +5,8 @@ import ProductsGrid from "./ProductsGrid";
 import "./HomePage.css";
 
 function HomePage({ cart }) {
-    // 初始化 商品列表
     const [products, setPorducts] = useState([]);
 
-    // 使用 useEffect,仅渲染一次
     useEffect(() => {
         const getHomeData = async () => {
             const response = await axios.get("/api/products");
@@ -34,6 +32,5 @@ function HomePage({ cart }) {
         </>
     );
 }
-
 export default HomePage;
 // TODO:解决async await函数的返回值问题

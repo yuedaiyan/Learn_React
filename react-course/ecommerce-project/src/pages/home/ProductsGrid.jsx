@@ -56,5 +56,4 @@ function productsGrid({ products }) {
         </div>
     );
 }
-
 export default productsGrid;

@@ -7,7 +7,6 @@ import Header from "../../components/Header";
 import "./OrdersPage.css";
 
 function OrdersPage({ cart }) {
-    // 初始化 订单 状态
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -15,7 +14,6 @@ function OrdersPage({ cart }) {
             setOrders(response.data);
         });
     }, []);
-
     // console.log("orders:\n", orders);
 
     return (
@@ -94,6 +92,5 @@ function OrdersPage({ cart }) {
         </>
     );
 }
-
 export default OrdersPage;
 // TODO: 各个页面共用一个 Header 的情况下,解决购物车状态传入的问题
