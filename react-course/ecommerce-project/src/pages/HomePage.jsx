@@ -3,6 +3,18 @@ import { products } from "../../starting-code/data/products.js";
 import "./HomePage.css";
 
 function HomePage() {
+    // await fetch("http://localhost:3000/api/products");
+    //localhost:3000/api/products
+    fetch("http://localhost:3000/api/products")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            return data;
+        }).then((data) => {
+            console.log(data);
+        })
+
     return (
         <>
             <title>Ecommerce Project</title>
