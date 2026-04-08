@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import DeliveryOptions from "./DeliveryOptions";
 import CartItemDetials from "./CartItemDetails";
 import DeliveryDate from "./DeliveryDate";
