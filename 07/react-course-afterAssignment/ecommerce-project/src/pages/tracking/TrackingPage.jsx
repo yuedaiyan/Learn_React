@@ -1,10 +1,37 @@
 import Header from "../../components/Header";
+import axios from "axios";
+import dayjs from "dayjs";
 import { useParams } from "react-router";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import "./TrackingPage.css";
 
 function TrackingPage({ cart }) {
     const { orderId, productId } = useParams();
+    const [order, setOrder] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            const response = await axios.get(`/api/orders/${orderId}?expand=products`);
+            // console.log("-d response.data:\n", response.data);
+            setOrder(response.data);
+        })();
+    }, [orderId]);
+
+    // 检查order是否成功请求,并且已成功载入状态
+    if (!order) {
+        return null;
+    }
+
+    // console.log('-d order:\n',order);
+    // console.log('-d order.products:\n',order.products);
+    const productFetch = order.products.find((product) => {
+        if (product.productId === productId) {
+            return product;
+        }
+    });
+    console.log("-d productId of this:\n", productId);
+    console.log("-d product fetch:\n", productFetch);
 
     return (
         <>
