@@ -3,9 +3,11 @@ import { Link } from "react-router";
 import { Fragment } from "react";
 
 function OrderDetailsGrid({ order }) {
+    // console.log('-c order:\n',order);
     return (
         <div className="order-details-grid">
             {order.products.map((orderProduct) => {
+                // console.log('-c orderProduct:\n',orderProduct);
                 return (
                     <Fragment key={orderProduct.product.id}>
                         <div className="product-image-container">
@@ -26,7 +28,8 @@ function OrderDetailsGrid({ order }) {
                         </div>
 
                         <div className="product-actions">
-                            <Link to="/tracking">
+                            {/* TODO: react 有时候使用{}进行函数,有时候使用${}进行函数,区别在哪里? */}
+                            <Link to={`/tracking/${order.id}/${orderProduct.productId}`}>
                                 <button className="track-package-button button-secondary">Track package</button>
                             </Link>
                         </div>
