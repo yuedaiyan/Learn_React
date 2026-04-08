@@ -10,4 +10,3 @@ function productsGrid({ products, loadCart }) {
     );
 }
 export default productsGrid;
-// TODO: 解决浏览器控制台持续输出的 checked 问题

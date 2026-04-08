@@ -13,7 +13,6 @@ function Product({ product, loadCart }) {
         });
         // 依据后端数据,重新刷新前端购物车
         await loadCart();
-        // TODO: 后端数据不对,结算页面总是显示 quantity: 2
     };
 
     const selectQuantity = (event) => {

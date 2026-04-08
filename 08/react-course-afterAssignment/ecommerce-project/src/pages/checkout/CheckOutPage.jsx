@@ -19,7 +19,7 @@ function CheckOutPage({ cart, loadCart }) {
             response = await axios.get("/api/delivery-options?expand=estimatedDeliveryTime");
             setDeliveryOptiions(response.data);
 
-            // TODO: 依赖[cart]的刷新,实际上只影响羡慕的这个.get,所以这里应该将上面的get拆分出去
+            // TODO: 依赖[cart]的刷新,实际上只影响当前的这个.get,所以这里应该将上面的get拆分出去
             // 使用axios,获取当前时间下 右侧结算 相关的信息
             response = await axios.get("/api/payment-summary");
             setPaymentSummary(response.data);
