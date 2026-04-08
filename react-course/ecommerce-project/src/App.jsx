@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router";
 import HomePage from "./pages/home/HomePage";
 import CheckOutPage from "./pages/checkout/CheckOutPage";
 import OrdersPage from "./pages/orders/OrdersPage";
-import TrackingPage from "./pages/TrackingPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import TrackingPage from "./pages/tracking/TrackingPage";
+import NotFoundPage from "./pages/not-found/NotFoundPage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
@@ -36,7 +36,7 @@ function App() {
                 element={<OrdersPage cart={cart} />}
             />
             <Route
-                path="tracking"
+                path="tracking/:orderId/:productId"
                 element={<TrackingPage cart={cart} />}
             />
             <Route
@@ -47,5 +47,3 @@ function App() {
     );
 }
 export default App;
-
-// TODO: 解决参数传递的时候,为什么要使用{}括住解析的问题

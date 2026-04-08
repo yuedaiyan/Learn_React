@@ -1,9 +1,13 @@
-import {Link} from 'react-router'
-import './CheckOutHeader.css'
-import MobileLogo from "../../assets/images/mobile-logo.png"
-import Logo from "../../assets/images/logo.png"
+import { Link } from "react-router";
+import "./CheckOutHeader.css";
+import MobileLogo from "../../assets/images/mobile-logo.png";
+import Logo from "../../assets/images/logo.png";
 
-function CheckOutHeader() {
+function CheckOutHeader({ cart }) {
+
+    // 压缩 let totalQuantity=0 和 .forEach(…)
+    const totalQuantity = cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
+
     return (
         <div className="checkout-header">
             <div className="header-content">
@@ -25,7 +29,7 @@ function CheckOutHeader() {
                     <Link
                         className="return-to-home-link"
                         to="/">
-                        3 items
+                        {totalQuantity} items
                     </Link>
                     )
                 </div>

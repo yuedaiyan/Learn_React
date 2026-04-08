@@ -13,7 +13,6 @@ function DeliveryOptions({deliveryOptions,cartItem}) {
 
                 return (
                     <div
-                        // TODO: 这里是我自己改的,可能不对
                         key={deliveryOption.id}
                         className="delivery-option">
                         <input
