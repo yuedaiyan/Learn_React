@@ -1,0 +1,10 @@
+.not-found-message {
+    font-weight: bold;
+    font-size: 70px;
+    color: rgba(127, 127, 127, 0.544);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+

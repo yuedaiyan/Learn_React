@@ -1,0 +1,38 @@
+.chat-message-user {
+    /* 解决文本溢出聊天框问题 */
+    word-wrap: break-word; /* 旧属性，兼容性好 */
+    overflow-wrap: break-word; /* 新标准写法 */
+    word-break: break-all; /* 针对无空格的连续字符强制断行 */
+    /*  */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.chat-message-robot {
+    /* 解决文本溢出聊天框问题 */
+    word-wrap: break-word; /* 旧属性，兼容性好 */
+    overflow-wrap: break-word; /* 新标准写法 */
+    word-break: break-all; /* 针对无空格的连续字符强制断行 */
+    /*  */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.chat-message-text {
+    background-color: rgb(244, 244, 244);
+    padding: 10px 15px 10px 15px;
+    margin: 20px 10px 15px 10px;
+    border-radius: 5px;
+    max-width: 300px;
+}
+.chat-message-profile {
+    width: 40px;
+    border-radius: 45px;
+    object-fit: cover;
+}
+
+.chat-message-time {
+    color: gray;
+    padding: 12px 0px 0px 0px;
+    font-size: 15px;
+}
