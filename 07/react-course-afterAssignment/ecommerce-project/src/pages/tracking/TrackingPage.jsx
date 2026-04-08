@@ -23,15 +23,21 @@ function TrackingPage({ cart }) {
         return null;
     }
 
-    // console.log('-d order:\n',order);
-    // console.log('-d order.products:\n',order.products);
     const orderProduct = order.products.find((product) => {
         if (product.productId === productId) {
             return product;
         }
     });
-    console.log("-d productId of this:\n", productId);
-    console.log("-d orderProduct:\n", orderProduct);
+    // console.log("-d productId of this:\n", productId);
+    // console.log("-d orderProduct:\n", orderProduct);
+
+    // 计算求得当前寄送进度
+    let deliveryPercent = ((dayjs().valueOf() - order.orderTimeMs) / (orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs)) * 100;
+    if (deliveryPercent >= 100) {
+        deliveryPercent = 100;
+    }
+
+    console.log("deliveryPercent:\n", deliveryPercent);
 
     return (
         <>
@@ -52,12 +58,11 @@ function TrackingPage({ cart }) {
                         View all orders
                     </Link>
 
-                    {/*  */}
-                    <div className="delivery-date">Arriving on { dayjs(orderProduct.estimatedDeliveryTimeMs).format('dddd, MMMM D')}</div>
+                    <div className="delivery-date">Arriving on {dayjs(orderProduct.estimatedDeliveryTimeMs).format("dddd, MMMM D")}</div>
 
-                    <div className="product-info">{ orderProduct.product.name}</div>
+                    <div className="product-info">{orderProduct.product.name}</div>
 
-                    <div className="product-info">Quantity: { orderProduct.quantity}</div>
+                    <div className="product-info">Quantity: {orderProduct.quantity}</div>
 
                     <img
                         className="product-image"
@@ -71,10 +76,10 @@ function TrackingPage({ cart }) {
                     </div>
 
                     <div className="progress-bar-container">
-                        <div className="progress-bar"></div>
+                        <div
+                            className="progress-bar"
+                            style={{ width: `${deliveryPercent}%` }}></div>
                     </div>
-                    {/*  */}
-
                 </div>
             </div>
         </>
