@@ -1,9 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import formatMoney from "../../utils/money";
 
 function Product({ product, loadCart }) {
     const [quantity, setQuantity] = useState(1);
+    const [added, setAdded] = useState(false);
+    const addedRef = useRef(null);
+
+    // 组件卸载的时候清理计时器
+    useEffect(() => {
+        return () => {
+            if (addedRef.current) {
+                clearTimeout(addedRef.current);
+            }
+        };
+    }, []);
 
     const addToCart = async () => {
         await axios.post("/api/cart-items", {
@@ -11,6 +22,18 @@ function Product({ product, loadCart }) {
             // 缩写模式,与后面的效果一样 → quantity: quantity,
             quantity,
         });
+
+        // 添加之后 → 修改 Added绿色图标 提示状态
+        setAdded(true);
+        // 提前清理上一次的计时器结果,防止出现连点闪烁
+        if (addedRef.current) {
+            clearTimeout(addedRef.current);
+        }
+        // 准备本次的计时
+        addedRef.current = setTimeout(() => {
+            setAdded(false);
+        }, 2000);
+
         // 依据后端数据,重新刷新前端购物车
         await loadCart();
     };
@@ -63,7 +86,9 @@ function Product({ product, loadCart }) {
 
             <div className="product-spacer"></div>
 
-            <div className="added-to-cart">
+            <div
+                className="added-to-cart"
+                style={{ opacity: added ? 1 : 0 }}>
                 <img src="images/icons/checkmark.png" />
                 Added
             </div>
