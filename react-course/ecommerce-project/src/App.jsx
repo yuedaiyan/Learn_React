@@ -11,11 +11,15 @@ import "./App.css";
 function App() {
     // 将 cart 提升到最高处,防止在不同页面重复加载 cart
     const [cart, setCart] = useState([]);
+
+    // 从后端刷新前端购物车状态
+    const loadCart = async () => {
+        const response = await axios.get("/api/cart-items?expand=product");
+        setCart(response.data);
+    };
+
     useEffect(() => {
-        (async () => {
-            const response = await axios.get("/api/cart-items?expand=product");
-            setCart(response.data);
-        })();
+        loadCart();
     }, []);
 
     return (
@@ -23,7 +27,12 @@ function App() {
         <Routes>
             <Route
                 index
-                element={<HomePage cart={cart} />}
+                element={
+                    <HomePage
+                        cart={cart}
+                        loadCart={loadCart}
+                    />
+                }
             />
             <Route
                 path="checkout"
