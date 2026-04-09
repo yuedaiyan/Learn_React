@@ -6,8 +6,9 @@ import LogoWhite from "../assets/images/logo-white.png";
 // 从props中获取cart对象,之后会从中求得商品总数
 function Header({ cart }) {
     let totalQuantity = 0;
+    let searchText;
 
-    cart.forEach((cartItem) => {
+    cart.forEach(cartItem => {
         totalQuantity += cartItem.quantity;
     });
 
@@ -16,7 +17,8 @@ function Header({ cart }) {
             <div className="left-section">
                 <NavLink
                     to="/"
-                    className="header-link">
+                    className="header-link"
+                >
                     <img
                         className="logo"
                         src={LogoWhite}
@@ -33,9 +35,17 @@ function Header({ cart }) {
                     className="search-bar"
                     type="text"
                     placeholder="Search"
+                    onChange={event => {
+                        searchText = event.target.value;
+                    }}
                 />
 
-                <button className="search-button">
+                <button
+                    className="search-button"
+                    onClick={() => {
+                        console.log(searchText);
+                    }}
+                >
                     <img
                         className="search-icon"
                         src="images/icons/search-icon.png"
@@ -46,13 +56,15 @@ function Header({ cart }) {
             <div className="right-section">
                 <NavLink
                     className="orders-link header-link"
-                    to="/orders">
+                    to="/orders"
+                >
                     <span className="orders-text">Orders</span>
                 </NavLink>
 
                 <NavLink
                     className="cart-link header-link"
-                    to="/checkout">
+                    to="/checkout"
+                >
                     <img
                         className="cart-icon"
                         src="images/icons/cart-icon.png"

@@ -66,18 +66,6 @@ function CartItemDetials({ cartItem, loadCart }) {
                         onClick={() => {
                             quantityUpdate();
                         }}
-                        // onClick={async () => {
-                        //     // 如果 isQuantityUpdate 为真(代表已经打开了更新数量输入框),再次点击update,更新后端(更新完成之后,将 isQuantityUpdate的状态取反)
-                        //     if (isQuantityUpdate) {
-                        //         await axios.put(`/api/cart-items/${cartItem.productId}`, {
-                        //             // 缩写 quantity: quantity,
-                        //             quantity,
-                        //         });
-                        //         await loadCart();
-                        //     }
-
-                        //     setIsQuantityUpdate(!isQuantityUpdate);
-                        // }}
                     >
                         Update
                     </span>
