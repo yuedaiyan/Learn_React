@@ -1,8 +1,10 @@
 import axios from "axios";
+import { useState } from "react";
 import formatMoney from "../../utils/money";
 
-function CartItemDetials({ cartItem ,loadCart}) {
+function CartItemDetials({ cartItem, loadCart }) {
     // console.log('cartItem:\n',cartItem);
+    const [isQuantityUpdate, setIsQuantityUpdate] = useState(false);
 
     // 后端删除方法
     const deleteCartItem = async () => {
@@ -22,12 +24,24 @@ function CartItemDetials({ cartItem ,loadCart}) {
                 <div className="product-price">{formatMoney(cartItem.product.priceCents)}</div>
                 <div className="product-quantity">
                     <span>
-                        Quantity: <span className="quantity-label">{cartItem.quantity}</span>
+                        Quantity:{" "}
+                        <span className="quantity-label">
+                            <input className="quantity-input" type="text" />
+                            {cartItem.quantity}
+                        </span>
                     </span>
-                    <span className="update-quantity-link link-primary">Update</span>
+                    <span
+                        className="update-quantity-link link-primary"
+                        onClick={() => {
+                            setIsQuantityUpdate(!isQuantityUpdate);
+                        }}
+                    >
+                        Update
+                    </span>
                     <span
                         className="delete-quantity-link link-primary"
-                        onClick={deleteCartItem}>
+                        onClick={deleteCartItem}
+                    >
                         Delete
                     </span>
                 </div>

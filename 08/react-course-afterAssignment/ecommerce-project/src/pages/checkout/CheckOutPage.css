@@ -209,3 +209,8 @@
   margin-top: 20px;
   margin-bottom: 19px;
 }
+
+.quantity-input{
+    width: 50px;
+    /* TODO:可能需要添加左右的margin */
+}
