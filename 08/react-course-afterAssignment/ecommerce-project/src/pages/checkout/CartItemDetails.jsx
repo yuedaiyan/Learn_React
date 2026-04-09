@@ -26,7 +26,12 @@ function CartItemDetials({ cartItem, loadCart }) {
                     <span>
                         Quantity:{" "}
                         <span className="quantity-label">
-                            <input className="quantity-input" type="text" />
+                            {isQuantityUpdate && (
+                                <input
+                                    className="quantity-input"
+                                    type="text"
+                                />
+                            )}
                             {cartItem.quantity}
                         </span>
                     </span>
