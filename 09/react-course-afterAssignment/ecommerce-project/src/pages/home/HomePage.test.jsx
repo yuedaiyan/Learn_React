@@ -81,27 +81,38 @@ describe("HomePage component", () => {
             </MemoryRouter>,
         );
         const user = userEvent.setup();
-
         const productContainers = await screen.findAllByTestId("product-container");
 
-        // 点击:第一个商品 Add to Cart
-        const addToCartbutton0 = within(productContainers[0]).getByTestId("add-to-cart-button");
-        await user.click(addToCartbutton0);
-        // 点击:第二个商品 Add to Cart
-        const addToCartbutton1 = within(productContainers[1]).getByTestId("add-to-cart-button");
-        await user.click(addToCartbutton1);
+        // //  更新商品数量的选择,改选3
+        // const quantityselector = screen.getByTestId("product-quantity-containe");
+        // await user.selectOptions(quantityselector, "3");
+        // expect(quantityselector).toHaveValue("3");
 
-        // 检测两次发送的数据是否正确
+        // // 测试:改选3状态下,点击添加到购物车
+        // const addToCartButton = screen.getByTestId("add-to-cart-button");
+        // await user.click(addToCartButton);
+
+        // 点击:第一个商品 Add to Cart
+        const addToCartbutton1 = within(productContainers[0]).getByTestId("add-to-cart-button");
+        const quantityselector1 = within(productContainers[0]).getByTestId("product-quantity-containe");
+        await user.selectOptions(quantityselector1, "2");
+        await user.click(addToCartbutton1);
         expect(axios.post).toHaveBeenNthCalledWith(1, "/api/cart-items", {
             productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-            quantity: 1,
+            quantity: 2,
         });
+
+        // 点击:第二个商品 Add to Cart
+        const addToCartbutton2 = within(productContainers[1]).getByTestId("add-to-cart-button");
+        const quantityselector2 = within(productContainers[1]).getByTestId("product-quantity-containe");
+        await user.selectOptions(quantityselector2, "3");
+        await user.click(addToCartbutton2);
         expect(axios.post).toHaveBeenNthCalledWith(2, "/api/cart-items", {
             productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-            quantity: 1,
+            quantity: 3,
         });
-        
+
         // 检测是不是更新了两次购物车
-        expect(loadCart).toHaveBeenCalledTimes(2)
+        expect(loadCart).toHaveBeenCalledTimes(2);
     });
 });
