@@ -92,5 +92,18 @@ describe("Product component", () => {
         const user = userEvent.setup();
         const userSelect= await user.selectOptions(quantityselector,"3")
         expect(quantityselector).toHaveValue("3");
+
+        // 测试:改选3状态下,点击添加到购物车
+        const addToCartButton = screen.getByTestId("add-to-cart-button");
+        await user.click(addToCartButton);
+
+        // 检测:发送到后端的请求中是否包含指定内容
+        expect(axios.post).toHaveBeenCalledWith("/api/cart-items", {
+            productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+            quantity: 3,
+        });
+        // 检测:是否调用了 loadCart()
+        expect(loadCart).toHaveBeenCalled();
+
     });
 });
