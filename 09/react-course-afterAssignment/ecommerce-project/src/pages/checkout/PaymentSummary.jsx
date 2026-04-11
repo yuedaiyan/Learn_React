@@ -20,27 +20,42 @@ function PaymentSummary({ paymentSummary, loadCart }) {
             {/* 用于检查payment-summary是否存在 → 确定存在后,渲染右侧结算模块 */}
             {paymentSummary && (
                 <>
-                    <div className="payment-summary-row">
+                    <div
+                        className="payment-summary-row"
+                        data-testid="payment-summary-row-items"
+                    >
                         <div>Items ({paymentSummary.totalItems}):</div>
                         <div className="payment-summary-money">{formatMoney(paymentSummary.productCostCents)}</div>
                     </div>
 
-                    <div className="payment-summary-row">
+                    <div
+                        className="payment-summary-row"
+                        data-testid="payment-summary-row-shipping"
+                    >
                         <div>Shipping &amp; handling:</div>
                         <div className="payment-summary-money">{formatMoney(paymentSummary.shippingCostCents)}</div>
                     </div>
 
-                    <div className="payment-summary-row subtotal-row">
+                    <div
+                        className="payment-summary-row subtotal-row"
+                        data-testid="payment-summary-row-totalBeforeTax"
+                    >
                         <div>Total before tax:</div>
                         <div className="payment-summary-money">{formatMoney(paymentSummary.totalCostBeforeTaxCents)}</div>
                     </div>
 
-                    <div className="payment-summary-row">
+                    <div
+                        className="payment-summary-row"
+                        data-testid="payment-summary-row-estimatedTax"
+                    >
                         <div>Estimated tax (10%):</div>
                         <div className="payment-summary-money">{formatMoney(paymentSummary.taxCents)}</div>
                     </div>
 
-                    <div className="payment-summary-row total-row">
+                    <div
+                        className="payment-summary-row total-row"
+                        data-testid="payment-summary-row-orderTotal"
+                    >
                         <div>Order total:</div>
                         <div className="payment-summary-money">{formatMoney(paymentSummary.totalCostCents)}</div>
                     </div>

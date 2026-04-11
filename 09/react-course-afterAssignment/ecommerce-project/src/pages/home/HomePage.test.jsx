@@ -77,7 +77,6 @@ describe("HomePage component", () => {
                     cart={[]}
                     loadCart={loadCart}
                 />
-                ,
             </MemoryRouter>,
         );
         const user = userEvent.setup();
