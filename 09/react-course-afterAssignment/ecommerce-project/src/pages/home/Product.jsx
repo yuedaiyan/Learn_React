@@ -47,7 +47,10 @@ function Product({ product, loadCart }) {
     };
 
     return (
-        <div className="product-container" data-testid="product-container">
+        <div
+            className="product-container"
+            data-testid="product-container"
+        >
             <div className="product-image-container">
                 <img
                     className="product-image"
@@ -71,11 +74,12 @@ function Product({ product, loadCart }) {
 
             <div className="product-price">{formatMoney(product.priceCents)}</div>
 
-            <div className="product-quantity-container">
+            <div className="product-quantity-containe">
                 <select
                     // 通过set将选择的状态修改,新的选择状态会立刻刷新到屏幕上
                     value={quantity}
                     onChange={selectQuantity}
+                    data-testid="product-quantity-containe"
                 >
                     <option value="1">1</option>
                     <option value="2">2</option>

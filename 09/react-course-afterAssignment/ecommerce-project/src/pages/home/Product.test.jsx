@@ -73,4 +73,17 @@ describe("Product component", () => {
         // 检测:是否调用了 loadCart()
         expect(loadCart).toHaveBeenCalled();
     });
+
+    it("select a quantity (1)", async () => {
+        // 虚假渲染
+        render(
+            <Product
+                product={product}
+                loadCart={loadCart}
+            />,
+        );
+
+        const quantityselector = screen.getByTestId("product-quantity-containe");
+        expect(quantityselector).toHaveValue("1");
+    });
 });
