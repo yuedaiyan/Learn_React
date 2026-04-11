@@ -9,6 +9,7 @@ vi.mock("axios");
 describe("Product component", () => {
     let product;
     let loadCart;
+    let user;
 
     beforeEach(() => {
         // 劫持传入商品信息
@@ -26,6 +27,9 @@ describe("Product component", () => {
 
         // 劫持后端
         loadCart = vi.fn();
+
+        // 初始化:模拟用户交互
+        user = userEvent.setup();
     });
 
     it("deisplays the product details correctly", () => {
@@ -58,8 +62,6 @@ describe("Product component", () => {
                 loadCart={loadCart}
             />,
         );
-        // 初始化:模拟点击库
-        const user = userEvent.setup();
         // 获得 添加到购物车 按钮
         const addToCartButton = screen.getByTestId("add-to-cart-button");
         // 点击 添加到购物车
@@ -89,8 +91,7 @@ describe("Product component", () => {
         expect(quantityselector).toHaveValue("1");
 
         // 检测:改选3
-        const user = userEvent.setup();
-        const userSelect= await user.selectOptions(quantityselector,"3")
+        await user.selectOptions(quantityselector, "3");
         expect(quantityselector).toHaveValue("3");
 
         // 测试:改选3状态下,点击添加到购物车
@@ -104,6 +105,5 @@ describe("Product component", () => {
         });
         // 检测:是否调用了 loadCart()
         expect(loadCart).toHaveBeenCalled();
-
     });
 });
