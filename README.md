@@ -10,6 +10,7 @@ The course focuses on DOM tree generation and interaction, emphasizes the concep
 
 ### Project 1: Chatbot
 
+<!-- - **Description:** Claude Code总结 -->
 - **File Path:** `/react-course/chatbot-project`
 - **Best Viewed In:** Google Chrome
 
@@ -22,6 +23,7 @@ The course focuses on DOM tree generation and interaction, emphasizes the concep
 <br>
 <div align="center">
 
+<!-- TODO: 写完 -->
 [Chatbot Demonstration]
 
 </div>
@@ -33,8 +35,41 @@ cd /Learn_React/react-course/chatbot-project
 npm install
 npm run dev
 ```
+
 <br>
 
+### Project 2: Ecommerce Project
+
+<!-- - **Description:** 路由+异步+后端+Vitest测试+TypeScript+Claude Code总结 -->
+- **File Path:** `/react-course/ecommerce-project`
+- **Best Viewed In:** Google Chrome
+
+<!-- <br> -->
+<!-- TODO: 裁切图片 -->
+<!-- TODO: 部署项目,之后添加图片和图片注释的链接 -->
+<div align="center">
+            <img src="ecommerce.png" height="200" alt="Chatbot Demonstration">
+</div>
+<br>
+<div align="center">
+
+<!-- TODO: 写完 -->
+[Ecommerce Project Demonstration]
+
+</div>
+
+- **Project Launch Method**
+
+```bash
+cd /Learn_React/react-course/ecommerce-backend
+npm install
+npm run dev
+cd /Learn_React/react-course/ecommerce-project
+npm install
+npm run dev
+```
+
+<br>
 ## Resources & Credits
 
 - **Course Video:** [React Tutorial Full Course - Beginner to Pro (React 19, 2025)](https://www.youtube.com/watch?v=TtPXvEcE11E&t=25063s)
