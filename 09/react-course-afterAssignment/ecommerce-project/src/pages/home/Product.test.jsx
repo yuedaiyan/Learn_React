@@ -84,6 +84,13 @@ describe("Product component", () => {
         );
 
         const quantityselector = screen.getByTestId("product-quantity-containe");
+
+        // 检测:初始状态是否为1
         expect(quantityselector).toHaveValue("1");
+
+        // 检测:改选3
+        const user = userEvent.setup();
+        const userSelect= await user.selectOptions(quantityselector,"3")
+        expect(quantityselector).toHaveValue("3");
     });
 });
