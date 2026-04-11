@@ -83,15 +83,6 @@ describe("HomePage component", () => {
         const user = userEvent.setup();
         const productContainers = await screen.findAllByTestId("product-container");
 
-        // //  更新商品数量的选择,改选3
-        // const quantityselector = screen.getByTestId("product-quantity-containe");
-        // await user.selectOptions(quantityselector, "3");
-        // expect(quantityselector).toHaveValue("3");
-
-        // // 测试:改选3状态下,点击添加到购物车
-        // const addToCartButton = screen.getByTestId("add-to-cart-button");
-        // await user.click(addToCartButton);
-
         // 点击:第一个商品 Add to Cart
         const addToCartbutton1 = within(productContainers[0]).getByTestId("add-to-cart-button");
         const quantityselector1 = within(productContainers[0]).getByTestId("product-quantity-containe");
