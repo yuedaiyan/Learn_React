@@ -18,7 +18,7 @@ function Header({ cart }) {
     const searchText = searchParams.get("search");
     const [search, setSearch] = useState(searchText || "");
 
-    console.log("search in Header:\n", search);
+    // console.log("search in Header:\n", search);
 
     return (
         <div className="header">

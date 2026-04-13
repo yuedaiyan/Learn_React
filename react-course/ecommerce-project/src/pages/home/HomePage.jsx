@@ -9,13 +9,13 @@ function HomePage({ cart, loadCart }) {
     const [searchParams] = useSearchParams();
     const search = searchParams.get("search") || "";
 
-    console.log("search in homePage:\n", search);
+    // console.log("search in homePage:\n", search);
 
     const [products, setPorducts] = useState([]);
     useEffect(() => {
         (async () => {
             const url = search ? `/api/products?search=${search}` : "/api/products";
-            console.log(url);
+            // console.log(url);
             const response = await axios.get(url);
             setPorducts(response.data);
         })();
