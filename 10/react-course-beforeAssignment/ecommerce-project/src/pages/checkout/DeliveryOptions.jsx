@@ -1,0 +1,46 @@
+import dayjs from "dayjs";
+import axios from "axios";
+
+import formatMoney from "../../utils/money";
+
+function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
+    return (
+        <div className="delivery-options">
+            <div className="delivery-options-title">Choose a delivery option:</div>
+            {deliveryOptions.map((deliveryOption) => {
+                let priceString = "Free Shipping";
+                if (deliveryOption.priceCents > 0) {
+                    priceString = `${formatMoney(deliveryOption.priceCents)} - Shipping`;
+                }
+
+                const updateDeliveryOption = async () => {
+                    await axios.put(`/api/cart-items/${cartItem.productId}`, {
+                        deliveryOptionId: deliveryOption.id,
+                    });
+                    // 刷新: 重新从后端请求数据,更新前端购物车状态
+                    loadCart();
+                };
+
+                return (
+                    <div
+                        key={deliveryOption.id}
+                        className="delivery-option"
+                        onClick={updateDeliveryOption}>
+                        <input
+                            type="radio"
+                            checked={deliveryOption.id === cartItem.deliveryOptionId}
+                            onChange={() => {}}
+                            className="delivery-option-input"
+                            name={`delivery-option-${cartItem.productId}`}
+                        />
+                        <div>
+                            <div className="delivery-option-date">{dayjs(deliveryOption.estimatedDeliveryTimeMs).format("dddd, MMMM D")}</div>
+                            <div className="delivery-option-price">{priceString}</div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+export default DeliveryOptions;

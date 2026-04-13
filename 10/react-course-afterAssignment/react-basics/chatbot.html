@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+    <head>
+        <title>chatbot</title>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 0px 0px 0px 0px;
+            }
+            .send-button {
+                background-color: rgb(25, 135, 84);
+                color: white;
+                padding: 12px 20px 12px 20px;
+                margin: 0px 0px 0px 10px;
+                border: none;
+                border-radius: 5px;
+                font-size: 15px;
+                cursor: pointer;
+            }
+            .chat-input {
+                padding: 12px 15px 12px 15px;
+                border-radius: 10px;
+                border: 1px solid black;
+                font-size: 15px;
+                flex-grow: 1;
+            }
+            .chat-input-contaier {
+                display: flex;
+                margin: 10px 0px 20px 0px;
+            }
+            .app-container {
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .chat-message-user {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+            }
+            .chat-message-robot {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+            }
+            .chat-message-text {
+                background-color: rgb(244, 244, 244);
+                padding: 10px 15px 10px 15px;
+                margin: 15px 10px 10px 10px;
+                border-radius: 5px;
+                max-width: 300px;
+            }
+            .chat-message-profile {
+                width: 40px;
+            }
+            .chat-message-container {
+                flex-grow: 1;
+                margin: 30px 0px 10px 0px;
+                overflow: scroll;
+                scrollbar-width: none;
+            }
+            .welcome-message {
+                color: gray;
+                text-align: center;
+            }
+            .loading-img {
+                height: 40px;
+                margin: -15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="js-container"></div>
+        <script src="react-basics.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react.js"></script>
+        <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+        <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+        <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+        <script type="text/babel">
+            function ChatInput({ chatMessages, setChatMessages }) {
+                const [inputText, setInputText] = React.useState("");
+                const [isLoading, setLoading] = React.useState(false);
+
+                function saveInputText(event) {
+                    setInputText(event.target.value);
+                }
+
+                async function sendMessage() {
+                    if (isLoading || inputText === "") {
+                        return;
+                    }
+                    setLoading(true);
+
+                    // 首先: 情况输入框
+                    setInputText("");
+
+                    // 固定唯一的 robotId
+                    const robotId = crypto.randomUUID();
+                    // 先 将之前确定的消息进行拼接
+                    const newChatMesages = [
+                        ...chatMessages,
+                        {
+                            message: inputText,
+                            sender: "user",
+                            id: crypto.randomUUID(),
+                        },
+                    ];
+                    let response = "Loading…";
+
+                    // 将 Loading… 显示出来
+                    setChatMessages([
+                        ...newChatMesages,
+                        {
+                            // message: response,
+                            message: (
+                                <img
+                                    className="loading-img"
+                                    src="loading-spinner.gif"
+                                />
+                            ),
+                            sender: "robot",
+                            id: robotId,
+                        },
+                    ]);
+
+                    // 等待后端回复,再次设置聊天框内容
+                    response = await Chatbot.getResponseAsync(inputText);
+                    setChatMessages([
+                        // 复制所有旧的消息,添加新的消息
+                        ...newChatMesages,
+                        {
+                            message: response,
+                            sender: "robot",
+                            id: robotId,
+                        },
+                    ]);
+
+                    setLoading(false);
+                }
+
+                function enterDown(event) {
+                    if (event.key === "Enter") {
+                        sendMessage();
+                    }
+                    if (event.key === "Escape") {
+                        setInputText("");
+                    }
+                }
+
+                return (
+                    <div className="chat-input-contaier">
+                        <input
+                            className="chat-input"
+                            placeholder="Send a message to Chatbot"
+                            size="30"
+                            onChange={saveInputText}
+                            value={inputText}
+                            onKeyDown={enterDown}
+                        />
+
+                        <button
+                            className="send-button"
+                            // 一旦发生点击行为 → 执行 sendMeaasge函数
+                            onClick={sendMessage}>
+                            Send
+                        </button>
+                    </div>
+                );
+            }
+
+            // 传入一条消息 进行渲染
+            function ChatMessage({ message, sender }) {
+                return (
+                    <div className={sender === "user" ? "chat-message-user" : "chat-message-robot"}>
+                        {sender === "robot" && (
+                            <img
+                                className="chat-message-profile"
+                                src="robot.png"
+                            />
+                        )}
+                        <div className="chat-message-text">{message}</div>
+                        {sender === "user" && (
+                            <img
+                                className="chat-message-profile"
+                                src="user.png"
+                            />
+                        )}
+                    </div>
+                );
+            }
+
+            // 渲染函数 → 传入的是历史的聊天记录
+            function ChatMessages({ chatMessages }) {
+                // 创建一个 ref
+                // const chatMessageRef = React.useRef(null);
+                const chatMessageRef = useAutoScroll([chatMessages]);
+
+                return (
+                    <div
+                        className="chat-message-container"
+                        // 将 ref 挂载
+                        // ref={chatMessageRef}
+                        ref={chatMessageRef}
+                        >
+                        {chatMessages.map((chatMessage) => {
+                            // 将历史记录中的消息逐个渲染
+                            return (
+                                <ChatMessage
+                                    message={chatMessage.message}
+                                    sender={chatMessage.sender}
+                                    key={chatMessage.id}
+                                />
+                            );
+                        })}
+                    </div>
+                );
+            }
+
+            function WelcomeMessage({ chatMessages }) {
+                console.log(chatMessages.length);
+                if (chatMessages.length === 0) {
+                    return <p className="welcome-message">Welcome to the chatbot project! Send a message using the textbox below.</p>;
+                }
+            }
+
+            // 自制 hook
+            function useAutoScroll(dependencies) {
+                const chatMessageRef = React.useRef(null);
+
+                React.useEffect(() => {
+                    const containerElem = chatMessageRef.current;
+                    if (containerElem) {
+                        containerElem.scrollTop = containerElem.scrollHeight;
+                    }
+                }, dependencies);
+
+                return chatMessageRef
+            }
+
+            function App() {
+                const [chatMessages, setChatMessages] = React.useState([]);
+
+                return (
+                    <div className="app-container">
+                        <ChatMessages
+                            // className='chat-mesaaaage'
+                            chatMessages={chatMessages}
+                        />
+                        <WelcomeMessage chatMessages={chatMessages} />
+                        <ChatInput
+                            chatMessages={chatMessages}
+                            setChatMessages={setChatMessages}
+                        />
+                    </div>
+                );
+            }
+
+            const container = document.querySelector(".js-container");
+            ReactDOM.createRoot(container).render(<App />);
+        </script>
+    </body>
+</html>
+
+<!-- TODO: 解决输入太长,溢出文本框的问题 -->
+<!-- TODO: 3:52:57  -->
