@@ -13,6 +13,8 @@ import RobotProfileImage from'./assets/robot.png'
 function App() {
     const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem("messages")) || []);
 
+    const title=`${chatMessages.length} Messages`
+
     useEffect(() => {
         Chatbot.addResponses({
             "Yue Daiyan": "Yue Daiyan is learning React",
@@ -29,7 +31,7 @@ function App() {
     }, [chatMessages]);
     return (
         <>
-            <title>Chatbot project</title>
+            <title>{ title}</title>
             <link
                 rel="icon"
                 type="image/svg+xml"
