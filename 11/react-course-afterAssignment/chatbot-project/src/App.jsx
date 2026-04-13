@@ -8,6 +8,7 @@ import { WelcomeMessage } from "./components/WelcomeMessage";
 // 层级三: 导入 具体文件
 // 导入 App.css
 import "./App.css";
+import RobotProfileImage from'./assets/robot.png'
 
 function App() {
     const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem("messages")) || []);
@@ -27,17 +28,25 @@ function App() {
         localStorage.setItem("messages", JSON.stringify(chatMessages));
     }, [chatMessages]);
     return (
-        <div className="app-container">
-            <ChatMessages
-                // className='chat-mesaaaage'
-                chatMessages={chatMessages}
+        <>
+            <title>Chatbot project</title>
+            <link
+                rel="icon"
+                type="image/svg+xml"
+                href={RobotProfileImage}
             />
-            <WelcomeMessage chatMessages={chatMessages} />
-            <ChatInput
-                chatMessages={chatMessages}
-                setChatMessages={setChatMessages}
-            />
-        </div>
+
+            <div className="app-container">
+                <ChatMessages
+                    chatMessages={chatMessages}
+                />
+                <WelcomeMessage chatMessages={chatMessages} />
+                <ChatInput
+                    chatMessages={chatMessages}
+                    setChatMessages={setChatMessages}
+                />
+            </div>
+        </>
     );
 }
 
