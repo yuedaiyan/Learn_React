@@ -11,7 +11,7 @@ import "./App.css";
 import RobotProfileImage from'./assets/robot.png'
 
 function App() {
-    const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem("messages")) || []);
+    const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem("messages")!) || []);
 
     const title=`${chatMessages.length} Messages`
 
