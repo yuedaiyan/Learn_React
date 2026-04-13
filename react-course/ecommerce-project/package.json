@@ -5,9 +5,12 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "preview": "vite preview"
+        "preview": "vite preview",
+
+        "build:frontend": "vite build",
+        "build:backend": "npm --prefix ../ecommerce-backend run zip",
+        "build": "run-s build:frontend build:backend"
     },
     "dependencies": {
         "axios": "^1.8.4",

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import Header from "../../components/Header";
 import ProductsGrid from "./ProductsGrid";
 import "./HomePage.css";
+import Signature from "../../components/Signature";
 
 function HomePage({ cart, loadCart }) {
     const [searchParams] = useSearchParams();
@@ -38,6 +39,8 @@ function HomePage({ cart, loadCart }) {
                     loadCart={loadCart}
                 />
             </div>
+
+            <Signature/>
         </>
     );
 }

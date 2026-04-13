@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import Signature from "../../components/Signature";
 import "./TrackingPage.css";
 
 function TrackingPage({ cart }) {
@@ -87,6 +88,8 @@ function TrackingPage({ cart }) {
                     </div>
                 </div>
             </div>
+
+            <Signature/>
         </>
     );
 }

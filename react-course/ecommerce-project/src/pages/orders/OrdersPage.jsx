@@ -2,6 +2,7 @@ import axios from "axios";
 import Header from "../../components/Header";
 import { useState, useEffect } from "react";
 import OrdersGrid from "./OrdersGrid";
+import Signature from "../../components/Signature";
 import "./OrdersPage.css";
 
 function OrdersPage({ cart, loadCart }) {
@@ -34,6 +35,8 @@ function OrdersPage({ cart, loadCart }) {
                     loadCart={loadCart}
                 />
             </div>
+
+            <Signature/>
         </>
     );
 }

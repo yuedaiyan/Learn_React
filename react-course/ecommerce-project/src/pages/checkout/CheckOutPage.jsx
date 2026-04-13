@@ -3,6 +3,7 @@ import CheckOutHeader from "./CheckOutHeader";
 import OrderSummary from "./OrderSummary";
 import PaymentSummary from "./PaymentSummary";
 import { useState, useEffect } from "react";
+import Signature from "../../components/Signature";
 import "./CheckOutPage.css";
 
 function CheckOutPage({ cart, loadCart }) {
@@ -58,6 +59,8 @@ function CheckOutPage({ cart, loadCart }) {
                     />
                 </div>
             </div>
+
+            <Signature/>
         </>
     );
 }

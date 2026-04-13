@@ -21,6 +21,17 @@ export default defineConfig({
             },
         },
     },
+    // --- TODO:Claude Code对无法联合编译的解决方法,之前的前后端联合build,只能用于AWS,现在可以运行在github page上了
+    // preview: {
+    //     proxy: {
+    //         "/api": {
+    //             target: "http://localhost:3000",
+    //         },
+    //         "/images": {
+    //             target: "http://localhost:3000",
+    //         },
+    //     },
+    // },
     build: {
         outDir: "../ecommerce-backend/dist",
     },
