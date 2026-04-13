@@ -82,10 +82,10 @@ export function ChatInput({ chatMessages, setChatMessages }: ChatInputProps) {
         setLoading(false);
     }
 
-    function enterDown(event: React.KeyboardEvent<HTMLInputElement>) {
     // function enterDown(event: { _reactName: string, _targetInst: null; type: string; native}) {
     // 对象中嵌套了对象,此种穷举法无法实现
-        console.log('event:',event);
+    function enterDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        // console.log('event:',event);
         if (event.key === "Enter") {
             sendMessage();
         }
