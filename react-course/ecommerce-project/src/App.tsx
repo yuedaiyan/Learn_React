@@ -75,6 +75,5 @@ function App() {
     );
 }
 export default App;
-// TODO:Ts结果上传Amazon
 // TODO: (Optional) 删除AWS: https://www.youtube.com/watch?v=TtPXvEcE11E&t=36608s 10:37:00
 // TODO: (Optional) Context API: 跨多个页面/组件共享同一状态 -> const CartContext = createContext()
