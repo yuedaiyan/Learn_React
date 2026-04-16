@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 export type Product = {
     id: string;
@@ -19,7 +19,7 @@ export type Order = {
     id: string;
     productId: string;
     products: OrderProduct[];
-    orderTimeMs: dayjs.Dayjs;
+    orderTimeMs: number;
     totalCostCents: number;
 };
 
@@ -27,3 +27,5 @@ export type OrderDetailsGridProps = {
     order: Order;
     loadCart: () => void;
 };
+
+export type Orders = Order[];

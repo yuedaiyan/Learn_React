@@ -4,17 +4,14 @@ import { useState, useEffect } from "react";
 import OrdersGrid from "./OrdersGrid";
 import Signature from "../../components/Signature";
 import "./OrdersPage.css";
+import type { Cart, LoadCart } from "../../types";
 
 type OrderPageProps = {
-    cart: {
-        productId: string;
-        quantity: number;
-        diliveryOptionId: string;
-    }[];
-    loadCart:()=>void
-}
+    cart: Cart;
+    loadCart: LoadCart;
+};
 
-function OrdersPage({ cart, loadCart }:OrderPageProps) {
+function OrdersPage({ cart, loadCart }: OrderPageProps) {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -45,7 +42,7 @@ function OrdersPage({ cart, loadCart }:OrderPageProps) {
                 />
             </div>
 
-            <Signature/>
+            <Signature />
         </>
     );
 }

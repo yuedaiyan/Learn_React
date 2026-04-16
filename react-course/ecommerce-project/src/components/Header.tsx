@@ -4,18 +4,10 @@ import MobileLogoWhite from "../assets/images/mobile-logo-white.png";
 import LogoWhite from "../assets/images/logo-white.png";
 import { useState } from "react";
 import "./Header.css";
-
-// 定义类型
-type HeaderProps = {
-    cart: {
-        productId: string;
-        quantity: number;
-        diliveryOptionId: string;
-    }[];
-};
+import type { Cart } from "../types";
 
 // 从props中获取cart对象,之后会从中求得商品总数
-function Header({ cart }: HeaderProps) {
+function Header({ cart }: { cart: Cart }) {
     const navigate = useNavigate();
     let totalQuantity = 0;
 

@@ -2,9 +2,9 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { Link } from "react-router";
 import { Fragment } from "react";
-import type { OrderDetailsGridProps } from "../../types";
+import type { Order, LoadCart } from "../../types";
 
-function OrderDetailsGrid({ order, loadCart }: OrderDetailsGridProps) {
+function OrderDetailsGrid({ order, loadCart }: { order: Order; loadCart: LoadCart }) {
     // console.log("order:\n", order);
     return (
         <div className="order-details-grid">

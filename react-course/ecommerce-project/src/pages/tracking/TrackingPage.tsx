@@ -6,10 +6,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import Signature from "../../components/Signature";
 import "./TrackingPage.css";
+import type { Cart } from "../../types";
+import type { Order } from "../../types";
 
-function TrackingPage({ cart }) {
+function TrackingPage({ cart }: { cart: Cart }) {
     const { orderId, productId } = useParams();
-    const [order, setOrder] = useState(null);
+    // 设置 order的类型,可能是Order也可能是null
+    const [order, setOrder] = useState<Order | null>(null);
 
     useEffect(() => {
         (async () => {
@@ -23,11 +26,11 @@ function TrackingPage({ cart }) {
         return null;
     }
 
-    const orderProduct = order.products.find((product) => {
-        if (product.productId === productId) {
-            return product;
-        }
-    });
+    const orderProduct = order.products.find(product => product.productId === productId);
+
+    // orderProduct! → TS 非空断言
+    if (!orderProduct) return null;
+
     // console.log("-d productId of this:\n", productId);
     // console.log("-d orderProduct:\n", orderProduct);
 
@@ -58,7 +61,8 @@ function TrackingPage({ cart }) {
                 <div className="order-tracking">
                     <Link
                         className="back-to-orders-link link-primary"
-                        to="/orders">
+                        to="/orders"
+                    >
                         View all orders
                     </Link>
 
@@ -84,12 +88,13 @@ function TrackingPage({ cart }) {
                     <div className="progress-bar-container">
                         <div
                             className="progress-bar"
-                            style={{ width: `${deliveryPercent}%` }}></div>
+                            style={{ width: `${deliveryPercent}%` }}
+                        ></div>
                     </div>
                 </div>
             </div>
 
-            <Signature/>
+            <Signature />
         </>
     );
 }
