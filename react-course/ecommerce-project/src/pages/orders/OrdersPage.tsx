@@ -5,7 +5,16 @@ import OrdersGrid from "./OrdersGrid";
 import Signature from "../../components/Signature";
 import "./OrdersPage.css";
 
-function OrdersPage({ cart, loadCart }) {
+type OrderPageProps = {
+    cart: {
+        productId: string;
+        quantity: number;
+        diliveryOptionId: string;
+    }[];
+    loadCart:()=>void
+}
+
+function OrdersPage({ cart, loadCart }:OrderPageProps) {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {

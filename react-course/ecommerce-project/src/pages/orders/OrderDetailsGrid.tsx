@@ -2,12 +2,13 @@ import dayjs from "dayjs";
 import axios from "axios";
 import { Link } from "react-router";
 import { Fragment } from "react";
+import type { OrderDetailsGridProps } from "../../types";
 
-function OrderDetailsGrid({ order, loadCart }) {
+function OrderDetailsGrid({ order, loadCart }: OrderDetailsGridProps) {
     // console.log("order:\n", order);
     return (
         <div className="order-details-grid">
-            {order.products.map((orderProduct) => {
+            {order.products.map(orderProduct => {
                 // console.log('-d orderProduct:\n',orderProduct);
 
                 const addToCart = async () => {
@@ -36,7 +37,8 @@ function OrderDetailsGrid({ order, loadCart }) {
                                 />
                                 <span
                                     className="buy-again-message"
-                                    onClick={addToCart}>
+                                    onClick={addToCart}
+                                >
                                     Add to Cart
                                 </span>
                             </button>
