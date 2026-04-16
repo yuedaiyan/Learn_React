@@ -7,9 +7,8 @@ import NotFoundPage from "./pages/not-found/NotFoundPage";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import type{ Cart } from "./types";
+import type { Cart } from "./types";
 
-// TODO: ts 类型声名
 declare global {
     interface Window {
         axios: typeof axios;
@@ -77,5 +76,4 @@ function App() {
 }
 export default App;
 // TODO:ROUTER到底是什么,为什么App中的整个组件都要被包裹,似乎功能是可以接管浏览器地址栏,防止url变化的时候,整个屏幕刷新?
-// TODO:添加会员,学习TypeScript
 // TODO:Ts结果上传Amazon
